@@ -1,0 +1,38 @@
+{
+    "model": "KNN",
+    "k": 5,
+    "features": [
+        "u",
+        "g",
+        "r",
+        "i",
+        "z",
+        "redshift"
+    ],
+    "target": "class",
+    "train_size": 700,
+    "test_size": 300,
+    "accuracy": 0.9933333333333333,
+    "confusion_matrix": [
+        [
+            105,
+            0,
+            0
+        ],
+        [
+            2,
+            88,
+            0
+        ],
+        [
+            0,
+            0,
+            105
+        ]
+    ],
+    "labels": [
+        "Galaxy",
+        "QSO",
+        "Star"
+    ]
+}

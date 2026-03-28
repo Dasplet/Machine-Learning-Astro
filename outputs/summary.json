@@ -1,0 +1,8 @@
+{
+    "dataset_rows": 1000,
+    "dataset_columns": 9,
+    "classification_accuracy": 0.9933333333333333,
+    "regression_mse": 0.298483901818994,
+    "regression_r2": 0.5153400240858401,
+    "clustering_inertia": 223.95261374924985
+}

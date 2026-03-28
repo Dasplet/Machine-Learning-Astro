@@ -1,0 +1,11 @@
+{
+    "rows": 1000,
+    "columns": 9,
+    "null_values_total": 0,
+    "has_required_columns": true,
+    "class_distribution": {
+        "Galaxy": 350,
+        "Star": 350,
+        "QSO": 300
+    }
+}
