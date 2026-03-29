@@ -21,20 +21,21 @@ pipeline {
 
         stage('Install dependencies') {
             steps {
-                sh 'pip3 install --upgrade pip'
-                sh 'pip3 install -r requirements.txt'
+                sh 'python3 -m venv venv'
+                sh '. venv/bin/activate && pip install --upgrade pip'
+                sh '. venv/bin/activate && pip install -r requirements.txt'
             }
         }
 
         stage('Test dataset') {
             steps {
-                sh 'python3 -m pytest tests -v'
+                sh '. venv/bin/activate && python -m pytest tests -v'
             }
         }
 
         stage('Run pipeline') {
             steps {
-                sh 'python3 -m src.main'
+                sh '. venv/bin/activate && python -m src.main'
             }
         }
 
