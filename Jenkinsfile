@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    options {
+        timestamps()
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -8,23 +12,24 @@ pipeline {
             }
         }
 
-        stage('Install dependencies') {
+        stage('Setup Python') {
             steps {
+                sh 'python3 --version'
                 sh 'python3 -m venv venv'
-                sh '. venv/bin/activate && pip install --upgrade pip'
+                sh '. venv/bin/activate && python -m pip install --upgrade pip'
                 sh '. venv/bin/activate && pip install -r requirements.txt'
             }
         }
 
-        stage('Run dataset tests') {
+        stage('Test dataset') {
             steps {
-                sh '. venv/bin/activate && pytest tests/ -v'
+                sh '. venv/bin/activate && python -m pytest tests -v'
             }
         }
 
-        stage('Run main pipeline') {
+        stage('Run pipeline') {
             steps {
-                sh '. venv/bin/activate && python src/main.py'
+                sh '. venv/bin/activate && python -m src.main'
             }
         }
 
@@ -37,13 +42,13 @@ pipeline {
 
     post {
         always {
-            echo 'Pipeline finalizado.'
+            echo 'Pipeline terminado.'
         }
         success {
-            echo 'Ejecución exitosa.'
+            echo 'Pipeline exitoso.'
         }
         failure {
-            echo 'La ejecución falló. Revisar logs.'
+            echo 'Pipeline falló. Revisa la consola y los artefactos.'
         }
     }
 }
