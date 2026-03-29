@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'python:3.11-slim'
+            args '-u root:root'
+        }
+    }
 
     options {
         timestamps()
@@ -12,24 +17,23 @@ pipeline {
             }
         }
 
-        stage('Setup Python') {
+        stage('Install dependencies') {
             steps {
-                sh 'python3 --version'
-                sh 'python3 -m venv venv'
-                sh '. venv/bin/activate && python -m pip install --upgrade pip'
-                sh '. venv/bin/activate && pip install -r requirements.txt'
+                sh 'python --version'
+                sh 'pip install --upgrade pip'
+                sh 'pip install -r requirements.txt'
             }
         }
 
         stage('Test dataset') {
             steps {
-                sh '. venv/bin/activate && python -m pytest tests -v'
+                sh 'python -m pytest tests -v'
             }
         }
 
         stage('Run pipeline') {
             steps {
-                sh '. venv/bin/activate && python -m src.main'
+                sh 'python -m src.main'
             }
         }
 
