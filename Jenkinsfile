@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.11-slim'
-            args '-u root:root'
-        }
-    }
+    agent any
 
     options {
         timestamps()
@@ -17,23 +12,29 @@ pipeline {
             }
         }
 
+        stage('Check Python') {
+            steps {
+                sh 'python3 --version'
+                sh 'pip3 --version'
+            }
+        }
+
         stage('Install dependencies') {
             steps {
-                sh 'python --version'
-                sh 'pip install --upgrade pip'
-                sh 'pip install -r requirements.txt'
+                sh 'pip3 install --upgrade pip'
+                sh 'pip3 install -r requirements.txt'
             }
         }
 
         stage('Test dataset') {
             steps {
-                sh 'python -m pytest tests -v'
+                sh 'python3 -m pytest tests -v'
             }
         }
 
         stage('Run pipeline') {
             steps {
-                sh 'python -m src.main'
+                sh 'python3 -m src.main'
             }
         }
 
