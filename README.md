@@ -18,4 +18,7 @@ El proyecto guarda métricas y gráficas en `outputs/`, puede ejecutarse localme
 ## Ejecución local
 ```bash
 pip install -r requirements.txt
-python src/main.py
+venv\Scripts\activate 
+.\venv311\Scripts\Activate
+python -m pytest tests/ -v
+python -m src.main
